@@ -21,7 +21,7 @@ var PLUGIN_INFO =
   <author mail="snaka.gml@gmail.com" homepage="http://vimperator.g.hatena.ne.jp/snaka72/">snaka</author>
   <author mail="yuta.taniguchi.y.t@gmail.com" homepage="http://d.hatena.ne.jp/yuttie/">yuttie</author>
   <license>MIT style license</license>
-  <version>0.11.0</version>
+  <version>0.11.1</version>
   <detail><![CDATA[
     == Subject ==
     j,k key scrolling to be smoothly.
