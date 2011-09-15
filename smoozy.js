@@ -100,11 +100,13 @@ let self = liberator.plugins.smoozy = (function() {
     [modes.NORMAL],
     ["j"],
     "Smooth scroll down",
-    function() {
+    function(count) {
+      count = count || 1
       const amount = window.eval(liberator.globalVariables.smoozy_scroll_amount || '100');
-      self.smoothScrollBy(amount);
+      self.smoothScrollBy(count * amount);
     },
     {
+      count: true,
       rhs: "smoozy: Smooth scroll down",
       noremap: true
     }
@@ -113,11 +115,13 @@ let self = liberator.plugins.smoozy = (function() {
     [modes.NORMAL],
     ["k"],
     "Smooth scroll up",
-    function() {
+    function(count) {
+      count = count || 1
       const amount = window.eval(liberator.globalVariables.smoozy_scroll_amount || '100');
-      self.smoothScrollBy(-amount);
+      self.smoothScrollBy(count * -amount);
     },
     {
+      count: true,
       rhs: "smoozy: Smooth scroll up",
       noremap: true
     }
