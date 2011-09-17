@@ -102,8 +102,7 @@ let self = liberator.plugins.smoozy = (function() {
     "Smooth scroll down",
     function(count) {
       count = count || 1
-      const amount = window.eval(liberator.globalVariables.smoozy_scroll_amount || '100');
-      self.smoothScrollBy(count * amount);
+      self.userSmoothScrollCurrentWindow(+count);
     },
     {
       count: true,
@@ -117,8 +116,7 @@ let self = liberator.plugins.smoozy = (function() {
     "Smooth scroll up",
     function(count) {
       count = count || 1
-      const amount = window.eval(liberator.globalVariables.smoozy_scroll_amount || '100');
-      self.smoothScrollBy(count * -amount);
+      self.userSmoothScrollCurrentWindow(-count);
     },
     {
       count: true,
@@ -130,11 +128,15 @@ let self = liberator.plugins.smoozy = (function() {
 
   // PUBLIC {{{
   var PUBLICS = {
-    smoothScrollBy: function(amount) {
+    smoothScroll: function(win, interval, amount, duration) {
+      smoothScrollImpl(win, interval, amount, duration, 0);
+    },
+    userSmoothScrollCurrentWindow: function(count) {
       const win = Buffer.findScrollableWindow();
       const interval = window.eval(liberator.globalVariables.smoozy_scroll_interval || '10');
+      const amount = window.eval(liberator.globalVariables.smoozy_scroll_amount || '100');
       const duration = window.eval(liberator.globalVariables.smoozy_scroll_duration || '300');
-      smoothScroll(win, interval, amount, duration, 0);
+      smoothScrollImpl(win, interval, count * amount, duration, 0);
     }
   };
   // }}}
@@ -149,7 +151,7 @@ let self = liberator.plugins.smoozy = (function() {
     }
   }
 
-  function smoothScroll(win, interval, amount, duration, remainder) {
+  function smoothScrollImpl(win, interval, amount, duration, remainder) {
     if (duration > 0) {
       const a = interval * amount / duration + remainder;
       const p = truncate(a);
@@ -158,7 +160,7 @@ let self = liberator.plugins.smoozy = (function() {
       win.scrollBy(0, p);
 
       setTimeout(function() {
-        smoothScroll(win, interval, amount - p, duration - interval, new_remainder);
+        smoothScrollImpl(win, interval, amount - p, duration - interval, new_remainder);
       }, interval);
     }
   }
