@@ -6,92 +6,78 @@
 //   Copyright (c) 2011 yuttie<yuta.taniguchi.y.t@gmail.com>
 //
 //     distributable under the terms of an MIT-style license.
-//     http://www.opensource.jp/licenses/mit-license.html
+//     http://opensource.org/licenses/mit-license.php
 // }}}
 //
-// PLUGIN INFO: {{{
-var PLUGIN_INFO =
-<VimperatorPlugin>
-  <name>smoozy</name>
-  <description>At j,k key scrolling to be smooth.</description>
-  <description lang="ja">j,kキーでのスクロールをスムースに</description>
-  <minVersion>2.3pre</minVersion>
-  <maxVersion>3.2</maxVersion>
-  <updateURL>https://github.com/yuttie/smoozy.js</updateURL>
-  <author mail="snaka.gml@gmail.com" homepage="http://vimperator.g.hatena.ne.jp/snaka72/">snaka</author>
-  <author mail="yuta.taniguchi.y.t@gmail.com" homepage="http://d.hatena.ne.jp/yuttie/">yuttie</author>
-  <license>MIT style license</license>
-  <version>0.11.1</version>
-  <detail><![CDATA[
-    == Subject ==
-    j,k key scrolling to be smoothly.
-
-    == Global variables ==
-    You can configure following variable as you like.
-    :smoozy_scroll_amount: Scrolling amount(unit: px). Default value is 100px.
-    :smoozy_scroll_interval: Scrolling interval(unit: ms). Default value is 10ms.
-    :smoozy_scroll_duration: Scrolling duration(unit: ms). Default value is 30ms.
-
-    === Excample ===
-    Set scroll amount is 300px and interval is 20ms.
-    >||
-    let g:smoozy_scroll_amount="300"
-    let g:smoozy_scroll_interval="20"
-    ||<
-
-    == API ==
-    >||
-    smoozy.smoothScrollBy(amount);
-    ||<
-    Example.
-    >||
-    :js liberator.plugins.smoozy.smoothScrollBy(600)
-    :js liberator.plugins.smoozy.smoothScrollBy(-600)
-    ||<
-
-    == ToDo ==
-
-  ]]></detail>
-
-  <detail lang="ja"><![CDATA[
-    == 概要 ==
-    普段のj,kキーのスクロールをLDRizeライクにスムースにします。
-
-    == グローバル変数 ==
-    以下の変数を.vimperatorrcなどで設定することで動作を調整することができます。
-    :smoozy_scroll_amount:
-      1回にスクロールする幅です（単位：ピクセル）。デフォルトは"100"です。
-    :smoozy_scroll_interval:
-      スクロール時のアニメーションのインターバルです（単位：ミリ秒）。
-      "1"以上の値を設定します。デフォルトは"10"です。
-    :smoozy_scroll_duration:
-      スクロール時のアニメーションの継続時間です（単位：ミリ秒）。
-      "1"以上の値を設定します。デフォルトは"300"です。
-    === 設定例 ===
-    スクロール量を300pxに、インターバルを20msに設定します。
-    >||
-    let g:smoozy_scroll_amount="300"
-    let g:smoozy_scroll_interval="20"
-    ||<
-
-    == API ==
-    他のキーにマップする場合やスクリプトから呼び出せるようAPIを用意してます。
-    >||
-    smoozy.smoothScrollBy(amount);
-    ||<
-    amountにはスクロール量(ピクセル)を指定してください。正の値で下方向へ負の値で上方向へスクロールします。
-
-    Example.
-    >||
-    :js liberator.plugins.smoozy.smoothScrollBy(600)
-    :js liberator.plugins.smoozy.smoothScrollBy(-600)
-    ||<
-
-    == ToDo ==
-    - 読み込みの順番によっては他のプラグインと競合する可能性があるのをなんとかしたい。
-
-  ]]></detail>
-</VimperatorPlugin>;
+// INFO: {{{
+var INFO =
+<plugin name="smoozy" version="0.11.1"
+        href="https://github.com/yuttie/smoozy.js"
+        summary="Smooth scrolling"
+        xmlns={NS}>
+  <author email="snaka.gml@gmail.com" homepage="http://vimperator.g.hatena.ne.jp/snaka72/">snaka</author>
+  <author email="yuta.taniguchi.y.t@gmail.com" homepage="http://d.hatena.ne.jp/yuttie/">yuttie</author>
+  <license href="http://opensource.org/licenses/mit-license.php">MIT style license</license>
+  <item>
+    <tags>g:smoozy_scroll_amount</tags>
+    <spec>g:smoozy_scroll_amount</spec>
+    <default>"100"</default>
+    <description>
+      <p>
+        Scrolling amount in pixels.
+      </p>
+    </description>
+  </item>
+  <item>
+    <tags>g:smoozy_scroll_interval</tags>
+    <spec>g:smoozy_scroll_interval</spec>
+    <default>"10"</default>
+    <description>
+      <p>
+        Scrolling interval in milliseconds.
+      </p>
+    </description>
+  </item>
+  <item>
+    <tags>g:smoozy_scroll_duration</tags>
+    <spec>g:smoozy_scroll_duration</spec>
+    <default>"300"</default>
+    <description>
+      <p>
+        Scrolling duration in milliseconds.
+      </p>
+    </description>
+  </item>
+  <p>
+    <example>
+      Set scroll amount to 300 px and interval to 20 ms.
+      <ex>let g:smoozy_scroll_amount="300"</ex>
+      <ex>let g:smoozy_scroll_interval="20"</ex>
+    </example>
+  </p>
+  <item>
+    <tags>smoothScroll</tags>
+    <spec>smoothScroll(<a>window</a>, <a>interval</a>, <a>amount</a>, <a>duration</a>)</spec>
+    <description>
+      <p>
+        Smoothly scroll the specified window according to the specified
+        animation setting. Specify the amount of scroll in pixels, interval and
+        duration in milliseconds.
+      </p>
+    </description>
+  </item>
+  <item>
+    <tags>userSmoothScrollCurrentWindow</tags>
+    <spec>userSmoothScrollCurrentWindow(<a>count</a>)</spec>
+    <description>
+      <p>
+        Smoothly scroll the current window count times according to the user
+        configuration (or the default configuration) read from global
+        variables described above.
+      </p>
+    </description>
+  </item>
+</plugin>;
 // }}}
 
 let self = liberator.plugins.smoozy = (function() {
