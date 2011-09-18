@@ -5,7 +5,7 @@
 //   Copyright (c) 2009 snaka<snaka.gml@gmail.com>
 //   Copyright (c) 2011 yuttie<yuta.taniguchi.y.t@gmail.com>
 //
-//     distributable under the terms of an MIT-style license.
+//     distributable under the terms of MIT license.
 //     http://opensource.org/licenses/mit-license.php
 // }}}
 //
@@ -17,7 +17,7 @@ var INFO =
         xmlns={NS}>
   <author email="snaka.gml@gmail.com" homepage="http://vimperator.g.hatena.ne.jp/snaka72/">snaka</author>
   <author email="yuta.taniguchi.y.t@gmail.com" homepage="http://d.hatena.ne.jp/yuttie/">yuttie</author>
-  <license href="http://opensource.org/licenses/mit-license.php">MIT style license</license>
+  <license href="http://opensource.org/licenses/mit-license.php">MIT</license>
   <item>
     <tags>g:smoozy_scroll_amount</tags>
     <spec>g:smoozy_scroll_amount</spec>
