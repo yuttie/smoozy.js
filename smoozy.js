@@ -4,7 +4,7 @@
 //
 // LICENSE: {{{
 //   Copyright (c) 2009 snaka<snaka.gml@gmail.com>
-//   Copyright (c) 2013 yuttie<yuta.taniguchi.y.t@gmail.com>
+//   Copyright (c) 2011 yuttie<yuta.taniguchi.y.t@gmail.com>
 //
 //     distributable under the terms of MIT license.
 //     http://opensource.org/licenses/mit-license.php
