@@ -1,3 +1,4 @@
+// -*- mode: Javascript; js-indent-level: 2; -*-
 //
 // _smooziee.js
 //
