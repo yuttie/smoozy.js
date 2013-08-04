@@ -48,7 +48,7 @@ let self = liberator.plugins.smoozy = (function() {
   // Mappings  {{{
   mappings.addUserMap(
     [modes.NORMAL],
-    ["j"],
+    ["j", "<Down>"],
     "Smooth scroll down",
     function(count){
       self.smoothScrollBy(getScrollImpulse() * (count || 1));
@@ -59,10 +59,32 @@ let self = liberator.plugins.smoozy = (function() {
   );
   mappings.addUserMap(
     [modes.NORMAL],
-    ["k"],
+    ["k", "<Up>"],
     "Smooth scroll up",
     function(count){
       self.smoothScrollBy(getScrollImpulse() * -(count || 1));
+    },
+    {
+      count: true
+    }
+  );
+  mappings.addUserMap(
+    [modes.NORMAL],
+    ["<C-f>", "<PageDown>"],
+    "Smooth scroll down",
+    function(count){
+      self.smoothScrollBy(3 * getScrollImpulse() * (count || 1));
+    },
+    {
+      count: true
+    }
+  );
+  mappings.addUserMap(
+    [modes.NORMAL],
+    ["<C-b>", "<PageUp>"],
+    "Smooth scroll up",
+    function(count){
+      self.smoothScrollBy(3 * getScrollImpulse() * -(count || 1));
     },
     {
       count: true
