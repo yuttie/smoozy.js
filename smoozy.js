@@ -41,44 +41,6 @@ var INFO = xml`
     :js liberator.plugins.smoozy.smoothScrollBy(600)
     :js liberator.plugins.smoozy.smoothScrollBy(-600)
   ]]></ex></code>
-</plugin>
-<plugin name="smoozy.js" version="0.12.0"
-        href="https://github.com/yuttie/smoozy.js"
-        summary="j,kキーでのスクロールをスムースに"
-        lang="ja"
-        xmlns="http://vimperator.org/namespaces/liberator">
-  <author email="snaka.gml@gmail.com" homepage="http://vimperator.g.hatena.ne.jp/snaka72/">snaka</author>
-  <author email="yuta.taniguchi.y.t@gmail.com" homepage="https://github.com/yuttie">yuttie</author>
-  <project name="Vimperator" minVersion="3.6"/>
-  <license>MIT license</license>
-  <p>普段のj,kキーのスクロールをLDRizeライクにスムースにします。</p>
-  <h3 tag="smoozy_global_variables">グローバル変数</h3>
-  <p>以下の変数を.vimperatorrcなどで設定することで動作を調整することができます。</p>
-  <dl>
-    <dt>smoozy_scroll_amount</dt>
-    <dd>1回にスクロールする幅です（単位：ピクセル）。デフォルトは"400"です。</dd>
-    <dt>smoozy_interval</dt>
-    <dd>スクロール時のアニメーションのインターバルです（単位：ミリ秒）。
-      "1"以上の値を設定します。デフォルトは"20"です。</dd>
-  </dl>
-  <h3 tag="smoozy_example">設定例</h3>
-  <p>スクロール量を300pxに、インターバルを10msに設定します。</p>
-  <code><ex><![CDATA[
-    let g:smoozy_scroll_amount="300"
-    let g:smoozy_scroll_interval="10"
-  ]]></ex></code>
-  <h3 tag="smoozy_API">API</h3>
-  <p>他のキーにマップする場合やスクリプトから呼び出せるようAPIを用意してます。</p>
-  <code>smoozy.smoothScrollBy(amount);</code>
-  <p>Example</p>
-  <code><ex><![CDATA[
-    :js liberator.plugins.smoozy.smoothScrollBy(600)
-    :js liberator.plugins.smoozy.smoothScrollBy(-600)
-  ]]></ex></code>
-  <h3 tag="soomziee_ToDo">ToDo</h3>
-  <ul>
-    <li>読み込みの順番によっては他のプラグインと競合する可能性があるのをなんとかしたい。</li>
-  </ul>
 </plugin>`;
 // }}}
 
