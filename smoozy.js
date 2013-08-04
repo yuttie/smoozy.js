@@ -1,157 +1,147 @@
 //
-// smoozy.js
+// _smooziee.js
 //
 // LICENSE: {{{
 //   Copyright (c) 2009 snaka<snaka.gml@gmail.com>
-//   Copyright (c) 2011 yuttie<yuta.taniguchi.y.t@gmail.com>
 //
-//     distributable under the terms of MIT license.
-//     http://opensource.org/licenses/mit-license.php
+//     distributable under the terms of an MIT-style license.
+//     http://www.opensource.jp/licenses/mit-license.html
 // }}}
 //
 // INFO: {{{
-var INFO =
-<plugin name="smoozy" version="0.11.1"
-        href="https://github.com/yuttie/smoozy.js"
-        summary="Smooth scrolling"
-        xmlns={NS}>
+var INFO = xml`
+<plugin name="smooziee" version="0.10.2"
+        href="https://github.com/vimpr/vimperator-plugins/raw/master/_smooziee.js"
+        summary="j,kキーでのスクロールをスムースに"
+        lang="en_US"
+        xmlns="http://vimperator.org/namespaces/liberator">
   <author email="snaka.gml@gmail.com" homepage="http://vimperator.g.hatena.ne.jp/snaka72/">snaka</author>
-  <author email="yuta.taniguchi.y.t@gmail.com" homepage="http://d.hatena.ne.jp/yuttie/">yuttie</author>
-  <license href="http://opensource.org/licenses/mit-license.php">MIT</license>
-  <item>
-    <tags>g:smoozy_scroll_amount</tags>
-    <spec>g:smoozy_scroll_amount</spec>
-    <default>"100"</default>
-    <description>
-      <p>
-        Scrolling amount in pixels.
-      </p>
-    </description>
-  </item>
-  <item>
-    <tags>g:smoozy_scroll_interval</tags>
-    <spec>g:smoozy_scroll_interval</spec>
-    <default>"10"</default>
-    <description>
-      <p>
-        Scrolling interval in milliseconds.
-      </p>
-    </description>
-  </item>
-  <item>
-    <tags>g:smoozy_scroll_duration</tags>
-    <spec>g:smoozy_scroll_duration</spec>
-    <default>"300"</default>
-    <description>
-      <p>
-        Scrolling duration in milliseconds.
-      </p>
-    </description>
-  </item>
-  <p>
-    <example>
-      Set scroll amount to 300 px and interval to 20 ms.
-      <ex>let g:smoozy_scroll_amount="300"</ex>
-      <ex>let g:smoozy_scroll_interval="20"</ex>
-    </example>
-  </p>
-  <item>
-    <tags>smoothScroll</tags>
-    <spec>smoothScroll(<a>window</a>, <a>interval</a>, <a>amount</a>, <a>duration</a>)</spec>
-    <description>
-      <p>
-        Smoothly scroll the specified window according to the specified
-        animation setting. Specify the amount of scroll in pixels, interval and
-        duration in milliseconds.
-      </p>
-    </description>
-  </item>
-  <item>
-    <tags>userSmoothScrollCurrentWindow</tags>
-    <spec>userSmoothScrollCurrentWindow(<a>count</a>)</spec>
-    <description>
-      <p>
-        Smoothly scroll the current window count times according to the user
-        configuration (or the default configuration) read from global
-        variables described above.
-      </p>
-    </description>
-  </item>
-</plugin>;
+  <project name="Vimperator" minVersion="3.6"/>
+  <license>MIT style license</license>
+  <p>j,k key scrolling to be smoothly.</p>
+  <h3 tag="smooziee_global_variables">Global vriables</h3>
+  <p>You can configure following variable as you like.</p>
+  <dl>
+    <dt>smooziee_scroll_amount</dt><dd>Scrolling amount(unit:px). Default value is 400px.</dd>
+    <dt>smooziee_interval</dt><dd>Scrolling interval(unit:ms). Default value is 20ms.</dd>
+  </dl>
+  <h3 tag="smooziee_example">Example</h3>
+  <p>Set scroll amount is 300px and interval is 10ms.</p>
+  <code><ex><![CDATA[
+    let g:smooziee_scroll_amount="300"
+    let g:smooziee_scroll_interval="10"
+  ]]></ex></code>
+  <h3 tag="smooziee_API">API</h3>
+  <code>smooziee.smoothScrollBy(amount);</code>
+  <p>Example</p>
+  <code><ex><![CDATA[
+    :js liberator.plugins.smooziee.smoothScrollBy(600)
+    :js liberator.plugins.smooziee.smoothScrollBy(-600)
+  ]]></ex></code>
+</plugin>
+<plugin name="smooziee" version="0.10.2"
+        href="https://github.com/vimpr/vimperator-plugins/raw/master/_smooziee.js"
+        summary="j,kキーでのスクロールをスムースに"
+        lang="ja"
+        xmlns="http://vimperator.org/namespaces/liberator">
+  <author email="snaka.gml@gmail.com" homepage="http://vimperator.g.hatena.ne.jp/snaka72/">snaka</author>
+  <project name="Vimperator" minVersion="3.6"/>
+  <license>MIT style license</license>
+  <p>普段のj,kキーのスクロールをLDRizeライクにスムースにします。</p>
+  <h3 tag="smooziee_global_variables">グローバル変数</h3>
+  <p>以下の変数を.vimperatorrcなどで設定することで動作を調整することができます。</p>
+  <dl>
+    <dt>smooziee_scroll_amount</dt>
+    <dd>1回にスクロールする幅です（単位：ピクセル）。デフォルトは"400"です。</dd>
+    <dt>smooziee_interval</dt>
+    <dd>スクロール時のアニメーションのインターバルです（単位：ミリ秒）。
+      "1"以上の値を設定します。デフォルトは"20"です。</dd>
+  </dl>
+  <h3 tag="smooziee_example">設定例</h3>
+  <p>スクロール量を300pxに、インターバルを10msに設定します。</p>
+  <code><ex><![CDATA[
+    let g:smooziee_scroll_amount="300"
+    let g:smooziee_scroll_interval="10"
+  ]]></ex></code>
+  <h3 tag="smooziee_API">API</h3>
+  <p>他のキーにマップする場合やスクリプトから呼び出せるようAPIを用意してます。</p>
+  <code>smooziee.smoothScrollBy(amount);</code>
+  <p>Example</p>
+  <code><ex><![CDATA[
+    :js liberator.plugins.smooziee.smoothScrollBy(600)
+    :js liberator.plugins.smooziee.smoothScrollBy(-600)
+  ]]></ex></code>
+  <h3 tag="soomziee_ToDo">ToDo</h3>
+  <ul>
+    <li>読み込みの順番によっては他のプラグインと競合する可能性があるのをなんとかしたい。</li>
+  </ul>
+</plugin>`;
 // }}}
 
-let self = liberator.plugins.smoozy = (function() {
+let self = liberator.plugins.smooziee = (function(){
+
   // Mappings  {{{
   mappings.addUserMap(
     [modes.NORMAL],
     ["j"],
     "Smooth scroll down",
-    function(count) {
-      count = count || 1
-      self.userSmoothScrollCurrentWindow(+count);
+    function(count){
+      self.smoothScrollBy(getScrollAmount() * (count || 1));
     },
     {
-      count: true,
-      rhs: "smoozy: Smooth scroll down",
-      noremap: true
+      count: true
     }
   );
   mappings.addUserMap(
     [modes.NORMAL],
     ["k"],
     "Smooth scroll up",
-    function(count) {
-      count = count || 1
-      self.userSmoothScrollCurrentWindow(-count);
+    function(count){
+      self.smoothScrollBy(getScrollAmount() * -(count || 1));
     },
     {
-      count: true,
-      rhs: "smoozy: Smooth scroll up",
-      noremap: true
+      count: true
     }
   );
   // }}}
-
   // PUBLIC {{{
   var PUBLICS = {
-    smoothScroll: function(win, interval, amount, duration) {
-      smoothScrollImpl(win, interval, amount, duration, 0);
-    },
-    userSmoothScrollCurrentWindow: function(count) {
-      const win = Buffer.findScrollableWindow();
-      const interval = window.eval(liberator.globalVariables.smoozy_scroll_interval || '10');
-      const amount = window.eval(liberator.globalVariables.smoozy_scroll_amount || '100');
-      const duration = window.eval(liberator.globalVariables.smoozy_scroll_duration || '300');
-      smoothScrollImpl(win, interval, count * amount, duration, 0);
+    smoothScrollBy: function(moment) {
+      win = Buffer.findScrollableWindow();
+      interval = window.eval(liberator.globalVariables.smooziee_scroll_interval || '20');
+      destY = win.scrollY + moment;
+      clearTimeout(next);
+      smoothScroll(moment);
     }
-  };
-  // }}}
+  }
 
+  // }}}
   // PRIVATE {{{
-  function truncate(x) {
-    if (x > 0) {
-      return Math.floor(x);
+  var next;
+  var destY;
+  var win;
+  var interval;
+
+  function getScrollAmount() window.eval(liberator.globalVariables.smooziee_scroll_amount || '400');
+
+  function smoothScroll(moment) {
+    if (moment > 0)
+      moment = Math.floor(moment / 2);
+    else
+      moment = Math.ceil(moment / 2);
+
+    win.scrollBy(0, moment);
+
+    if (Math.abs(moment) < 1) {
+      setTimeout(makeScrollTo(win.scrollX, destY), interval);
+      destY = null;
+      return;
     }
-    else {
-      return Math.ceil(x);
-    }
+    next = setTimeout(function() smoothScroll(moment), interval);
   }
 
-  function smoothScrollImpl(win, interval, amount, duration, remainder) {
-    if (duration > 0) {
-      const a = interval * amount / duration + remainder;
-      const p = truncate(a);
-      const new_remainder = a - p;
-
-      win.scrollBy(0, p);
-
-      setTimeout(function() {
-        smoothScrollImpl(win, interval, amount - p, duration - interval, new_remainder);
-      }, interval);
-    }
-  }
+  function makeScrollTo(x, y) function() win.scrollTo(x, y);
   // }}}
-
   return PUBLICS;
 })();
 // vim: sw=2 ts=2 et si fdm=marker:
