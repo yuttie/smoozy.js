@@ -101,19 +101,17 @@ let self = liberator.plugins.smoozy = (function() {
   // }}}
 
   // PRIVATE {{{
-  var states = [];
-
   function getScrollImpulse()  { return window.eval(liberator.globalVariables.smoozy_scroll_impulse || '200'); }
   function getScrollInterval() { return window.eval(liberator.globalVariables.smoozy_scroll_interval || '16.67'); }
   function getScrollResistance() { return window.eval(liberator.globalVariables.smoozy_scroll_resistance || '0.9'); }
 
   function applyImpulse(impulse, win) {
-    if (states[0]) {
-      var s = states[0];
+    if (win.smoozyState) {
+      var s = win.smoozyState;
       s.impulse += impulse;
     }
     else {
-      states[0] = {
+      win.smoozyState = {
         "impulse": impulse,
         "velocity": 0,
         "delta": 0
@@ -125,7 +123,7 @@ let self = liberator.plugins.smoozy = (function() {
       var dt = interval / 1000;  // unit conversion: ms -> s
       function tick() {
         // update the state
-        var s = states[0];
+        var s = win.smoozyState;
         var friction = -s.velocity * resCoef;
         s.delta += s.velocity * dt;
         s.velocity += s.impulse + friction * dt;
@@ -141,7 +139,7 @@ let self = liberator.plugins.smoozy = (function() {
 
         // stop the thread or continue it
         if (Math.abs(s.velocity) < 1 || reachedBound) {
-          states[0] = null;
+          win.smoozyState = null;
         }
         else {
           setTimeout(tick, interval);
