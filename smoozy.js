@@ -73,7 +73,7 @@ let self = liberator.plugins.smoozy = (function() {
     ["<C-f>", "<PageDown>"],
     "Smooth scroll down",
     function(count){
-      self.smoothScrollBy(3 * getScrollImpulse() * (count || 1));
+      self.smoothScrollBy(2 * getScrollImpulse() * (count || 1));
     },
     {
       count: true
@@ -84,7 +84,7 @@ let self = liberator.plugins.smoozy = (function() {
     ["<C-b>", "<PageUp>"],
     "Smooth scroll up",
     function(count){
-      self.smoothScrollBy(3 * getScrollImpulse() * -(count || 1));
+      self.smoothScrollBy(2 * getScrollImpulse() * -(count || 1));
     },
     {
       count: true
@@ -101,9 +101,9 @@ let self = liberator.plugins.smoozy = (function() {
   // }}}
 
   // PRIVATE {{{
-  function getScrollImpulse()  { return window.eval(liberator.globalVariables.smoozy_scroll_impulse || '200'); }
+  function getScrollImpulse()  { return window.eval(liberator.globalVariables.smoozy_scroll_impulse || '400'); }
   function getScrollInterval() { return window.eval(liberator.globalVariables.smoozy_scroll_interval || '16.67'); }
-  function getScrollResistance() { return window.eval(liberator.globalVariables.smoozy_scroll_resistance || '0.9'); }
+  function getScrollFriction() { return window.eval(liberator.globalVariables.smoozy_scroll_friction || '800'); }
 
   function applyImpulse(impulse, win) {
     if (win.smoozyState) {
@@ -119,14 +119,15 @@ let self = liberator.plugins.smoozy = (function() {
 
       // start a thread
       var interval = getScrollInterval();
-      var resCoef = getScrollResistance();
+      var frictionCoef = getScrollFriction();
       var dt = interval / 1000;  // unit conversion: ms -> s
       function tick() {
         // update the state
         var s = win.smoozyState;
-        var friction = -s.velocity * resCoef;
+        var v_sign = s.velocity === 0 ? 0 : Math.abs(s.velocity) / s.velocity;
+        var friction = -v_sign * frictionCoef;
         s.delta += s.velocity * dt;
-        s.velocity += s.impulse + friction * dt;
+        s.velocity += s.impulse + (Math.abs(friction * dt) > Math.abs(s.velocity) ? -s.velocity : friction * dt);
         s.impulse = 0;
 
         // scroll
