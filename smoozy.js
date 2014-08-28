@@ -101,9 +101,10 @@ let self = liberator.plugins.smoozy = (function() {
   // }}}
 
   // PRIVATE {{{
-  function getScrollImpulse()  { return window.eval(liberator.globalVariables.smoozy_scroll_impulse || '400'); }
+  function getScrollImpulse()  { return window.eval(liberator.globalVariables.smoozy_scroll_impulse || '1000'); }
   function getScrollInterval() { return window.eval(liberator.globalVariables.smoozy_scroll_interval || '16.67'); }
-  function getScrollFriction() { return window.eval(liberator.globalVariables.smoozy_scroll_friction || '800'); }
+  function getScrollFriction() { return window.eval(liberator.globalVariables.smoozy_scroll_friction || '5000'); }
+  function getScrollAirDrag()  { return window.eval(liberator.globalVariables.smoozy_scroll_air_drag || '4'); }
 
   function applyImpulse(impulse, win) {
     if (win.smoozyState) {
@@ -120,14 +121,17 @@ let self = liberator.plugins.smoozy = (function() {
       // start a thread
       var interval = getScrollInterval();
       var frictionCoef = getScrollFriction();
+      var airDragCoef = getScrollAirDrag();
       var dt = interval / 1000;  // unit conversion: ms -> s
       function tick() {
         // update the state
         var s = win.smoozyState;
         var v_sign = s.velocity === 0 ? 0 : Math.abs(s.velocity) / s.velocity;
         var friction = -v_sign * frictionCoef * 1;  // mass is 1
+        var airDrag = -s.velocity * airDragCoef;
+        var additionalForce = friction + airDrag;
         s.delta += s.velocity * dt;
-        s.velocity += s.impulse + (Math.abs(friction * dt) > Math.abs(s.velocity) ? -s.velocity : friction * dt);
+        s.velocity += s.impulse + (Math.abs(additionalForce * dt) > Math.abs(s.velocity) ? -s.velocity : additionalForce * dt);
         s.impulse = 0;
 
         // scroll
