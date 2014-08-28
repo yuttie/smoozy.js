@@ -125,7 +125,7 @@ let self = liberator.plugins.smoozy = (function() {
         // update the state
         var s = win.smoozyState;
         var v_sign = s.velocity === 0 ? 0 : Math.abs(s.velocity) / s.velocity;
-        var friction = -v_sign * frictionCoef;
+        var friction = -v_sign * frictionCoef * 1;  // mass is 1
         s.delta += s.velocity * dt;
         s.velocity += s.impulse + (Math.abs(friction * dt) > Math.abs(s.velocity) ? -s.velocity : friction * dt);
         s.impulse = 0;
